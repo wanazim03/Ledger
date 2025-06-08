@@ -5,11 +5,9 @@ import java.util.regex.Pattern;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final DatabaseHandler db = new DatabaseHandler();
+    private static final DatabaseHandler db = new DatabaseHandler(); // Static block auto-runs
 
     public static void main(String[] args) {
-        db.createUserTable(); // Ensure table exists
-
         while (true) {
             System.out.println("== Ledger System ==");
             System.out.println("Login or Register:");
@@ -35,8 +33,8 @@ public class Main {
     private static void registerUser() {
         System.out.println("\n== Please fill in the form ==");
 
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
+        System.out.print("Name: "); // Renamed to match DB column
+        String name = scanner.nextLine();
 
         String email;
         while (true) {
@@ -64,7 +62,7 @@ public class Main {
         if (db.userExists(email)) {
             System.out.println("Email already registered!\n");
         } else {
-            db.insertUser(username, email, password);
+            db.insertUser(name, email, password); // Use "name" not "username"
             System.out.println("\nRegister Successful!!!\n");
         }
     }

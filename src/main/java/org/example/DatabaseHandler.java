@@ -5,11 +5,8 @@ import java.sql.*;
 public class DatabaseHandler {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
-    public DatabaseHandler() {
-        createUserTable();
-    }
-
-    public void createUserTable() {
+    // Static block to initialize database table without requiring a main method
+    static {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
 
@@ -67,11 +64,5 @@ public class DatabaseHandler {
             System.out.println("Error validating user: " + e.getMessage());
             return false;
         }
-    }
-
-    // Main method for testing and to ensure database + table is created
-    public static void main(String[] args) {
-        new DatabaseHandler(); // This will create the DB and table
-        System.out.println("Database setup complete.");
     }
 }
